@@ -1,15 +1,27 @@
 package gobuild
 
+// Platform set the target platform
 type Platform struct {
-	Arch  PlatformArch
-	OS    PlatformOS
+	// Arch sets GOARCH.
+	Arch PlatformArch
+
+	// OS sets GOOS.
+	OS PlatformOS
+
+	// GoArm sets GOARM when Arch is `arm`.
 	GoArm PlatformGoArm
 
+	// CC sets C compiler when cgo is enabled.
 	CC string
 }
 
+// PlatformArch is all avaliable GOARCH.
 type PlatformArch string
+
+// PlatformOS is all avaliable GOOS.
 type PlatformOS string
+
+// PlatformGoArm is all avaliable GOARM.
 type PlatformGoArm string
 
 const (
@@ -83,6 +95,10 @@ var (
 )
 
 var (
+	// PlatformCommon includes the most used (~99.9%) platforms.
+	//
+	// Including OS: Windows, Linux, Darwin(MacOS).
+	// Including Arch: 386, amd64, arm32(v5, v6, v7), arm64.
 	PlatformCommon = []Platform{
 		PlatformWindows386,
 		PlatformWindowsAmd64,
@@ -101,6 +117,7 @@ var (
 		PlatformDarwinArm64,
 	}
 
+	// PlatformNative contains the config for native platform
 	PlatformNative = []Platform{
 		{},
 	}

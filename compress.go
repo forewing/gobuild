@@ -8,13 +8,24 @@ import (
 	"os"
 )
 
+// CompressType describe compress strategy.
 type CompressType string
 
 const (
-	CompressRaw      CompressType = "raw"
+	// CompressRaw do not compress binaries, just copy them to output path.
+	CompressRaw CompressType = "raw"
+
+	// CompressAllTarGz compress all binaries into tar.gz format
 	CompressAllTarGz CompressType = "tar.gz"
-	CompressAllZip   CompressType = "zip"
-	CompressAuto     CompressType = "auto"
+
+	// CompressAllZip compress all binaries into zip format
+	CompressAllZip CompressType = "zip"
+
+	// CompressAuto decides compress format according to target OS.
+	//
+	// For Arch other than `windows`, use tar.gz format.
+	// For Arch `windows`, use zip format.
+	CompressAuto CompressType = "auto"
 )
 
 func compressTarGz(outputPath, inputPath, binName string) error {
@@ -43,7 +54,7 @@ func compressZip(outputPath, inputPath, binName string) error {
 	zipWriter := zip.NewWriter(file)
 	defer zipWriter.Close()
 
-	return AddFileToZipWritter(zipWriter, inputPath, binName)
+	return addFileToZipWritter(zipWriter, inputPath, binName)
 }
 
 func compressRaw(outputPath, inputPath string) error {
@@ -78,7 +89,7 @@ func addFileToTarWriter(tarWriter *tar.Writer, filePath, fileName string) error 
 	return err
 }
 
-func AddFileToZipWritter(zipWriter *zip.Writer, filePath, fileName string) error {
+func addFileToZipWritter(zipWriter *zip.Writer, filePath, fileName string) error {
 	file, err := os.Open(filePath)
 	if err != nil {
 		return err

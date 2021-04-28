@@ -9,23 +9,55 @@ import (
 	"strings"
 )
 
+// Target describe build configs
 type Target struct {
+	// Go executeable path.
+	//
+	// If empty, `go` will be used.
 	Go string
 
-	Source      string
-	OutputName  string
-	OutputPath  string
+	// Source is directory of source main package.
+	Source string
+
+	// OutputName is the base name of output.
+	//
+	// It may contains `Placeholder`s, which will be replaced when building.
+	OutputName string
+
+	// OutputPath is the directory where all outputs will be stored.
+	OutputPath string
+
+	// If CleanOutput is true, all contents of OutputPath will be removed before building.
 	CleanOutput bool
 
+	// If Cgo is true, enabled cgo, and Platform.CC is used as C compiler.
+	//
+	// If false, cgo is disabled.
 	Cgo bool
 
-	ExtraFlags   []string
+	// ExtraFlags to be passed to go complier.
+	ExtraFlags []string
+
+	// ExtraLdFlags to be passed to loader.
+	//
+	// Example: to behave like `go build -ldflags "-s -w"`, this field
+	// should be set to "-s -w".
 	ExtraLdFlags string
 
+	// VersionPath is the path of a variable of your source package
+	// where you want it to be set to output of `git describe --tags` when building.
+	//
+	// Example: you have a variable `Version` in package `main`,
+	// set VersionPath to `main.Version`, and Version will be set to your git tag.
 	VersionPath string
-	HashPath    string
 
-	Compress  CompressType
+	// HashPath is the path of a variable where you want it to be the current git hash.
+	HashPath string
+
+	// Compress set the compress methods.
+	Compress CompressType
+
+	// Platforms is the target platforms.
 	Platforms []Platform
 
 	temp    string
@@ -34,9 +66,14 @@ type Target struct {
 }
 
 const (
+	// PlaceholderVersion will be replaced by output of `git describe --tags` on success
 	PlaceholderVersion = "{Version}"
-	PlaceholderArch    = "{Arch}"
-	PlaceholderOS      = "{OS}"
+
+	// PlaceholderArch will be replaced by GOARCH.
+	PlaceholderArch = "{Arch}"
+
+	// PlaceholderOS will be replaced by GOOS.
+	PlaceholderOS = "{OS}"
 
 	tempDirPattern = "go-build*"
 
@@ -59,6 +96,7 @@ var (
 	}
 )
 
+// Build the target
 func (t *Target) Build() error {
 	if t.CleanOutput {
 		if err := cleanDirectory(t.OutputPath); err != nil {
