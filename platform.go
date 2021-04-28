@@ -15,13 +15,13 @@ type Platform struct {
 	CC string
 }
 
-// PlatformArch is all avaliable GOARCH.
+// PlatformArch is all available GOARCH.
 type PlatformArch string
 
-// PlatformOS is all avaliable GOOS.
+// PlatformOS is all available GOOS.
 type PlatformOS string
 
-// PlatformGoArm is all avaliable GOARM.
+// PlatformGoArm is all available GOARM.
 type PlatformGoArm string
 
 const (

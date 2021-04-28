@@ -35,7 +35,7 @@ type Target struct {
 	// If false, cgo is disabled.
 	Cgo bool
 
-	// ExtraFlags to be passed to go complier.
+	// ExtraFlags to be passed to go compiler.
 	ExtraFlags []string
 
 	// ExtraLdFlags to be passed to loader.
