@@ -65,15 +65,18 @@ type Target struct {
 	output  string
 }
 
+// Placeholder will be replaced when building.
+type Placeholder string
+
 const (
 	// PlaceholderVersion will be replaced by output of `git describe --tags` on success
-	PlaceholderVersion = "{Version}"
+	PlaceholderVersion Placeholder = "{Version}"
 
 	// PlaceholderArch will be replaced by GOARCH.
-	PlaceholderArch = "{Arch}"
+	PlaceholderArch Placeholder = "{Arch}"
 
 	// PlaceholderOS will be replaced by GOOS.
-	PlaceholderOS = "{OS}"
+	PlaceholderOS Placeholder = "{OS}"
 
 	tempDirPattern = "go-build*"
 
@@ -154,7 +157,7 @@ func (t *Target) init() error {
 				fmt.Sprintf("-X '%s=%s'", t.VersionPath, v),
 			)
 		}
-		t.output = strings.ReplaceAll(t.output, PlaceholderVersion, v)
+		t.output = strings.ReplaceAll(t.output, string(PlaceholderVersion), v)
 	}
 	if len(t.HashPath) > 0 {
 		if h, err := GetGitHash(t.Source); err == nil && len(h) > 0 {
@@ -223,20 +226,20 @@ func (t *Target) pack(id int, input string) error {
 	name := t.output
 
 	if len(p.OS) > 0 {
-		if !strings.Contains(name, PlaceholderOS) {
+		if !strings.Contains(name, string(PlaceholderOS)) {
 			name = fmt.Sprintf("%s-%s", name, p.OS)
 		}
-		name = strings.ReplaceAll(name, PlaceholderOS, string(p.OS))
+		name = strings.ReplaceAll(name, string(PlaceholderOS), string(p.OS))
 	} else if runtime.GOOS == string(OSWindows) {
 		p.OS = OSWindows
 	}
 
 	if len(p.Arch) > 0 {
 		arch := string(p.Arch) + string(p.GoArm)
-		if !strings.Contains(name, PlaceholderArch) {
+		if !strings.Contains(name, string(PlaceholderArch)) {
 			name = fmt.Sprintf("%s-%s", name, arch)
 		}
-		name = strings.ReplaceAll(name, PlaceholderArch, arch)
+		name = strings.ReplaceAll(name, string(PlaceholderArch), arch)
 	}
 
 	binary := name
