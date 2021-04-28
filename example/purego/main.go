@@ -13,20 +13,16 @@ var (
 			gobuild.PlaceholderVersion,
 			gobuild.PlaceholderOS,
 			gobuild.PlaceholderArch),
-		OutputPath: "./output",
+		OutputPath:  "./output",
+		CleanOutput: true,
 
 		ExtraLdFlags: "-s -w",
 
 		VersionPath: "main.Version",
 		HashPath:    "main.Hash",
 
-		Compress: gobuild.CompressAuto,
-		Platforms: []gobuild.Platform{
-			{OS: gobuild.OSWindows, Arch: gobuild.ArchAmd64},
-			{OS: gobuild.OSWindows, Arch: gobuild.Arch386},
-			{OS: gobuild.OSLinux, Arch: gobuild.ArchAmd64},
-			{OS: gobuild.OSLinux, Arch: gobuild.ArchArm, GoArm: "5"},
-		},
+		Compress:  gobuild.CompressAuto,
+		Platforms: gobuild.PlatformCommon,
 	}
 )
 

@@ -11,9 +11,10 @@ import (
 type Target struct {
 	Go string
 
-	Source     string
-	OutputName string
-	OutputPath string
+	Source      string
+	OutputName  string
+	OutputPath  string
+	CleanOutput bool
 
 	Cgo bool
 
@@ -58,6 +59,11 @@ var (
 )
 
 func (t *Target) Build() error {
+	if t.CleanOutput {
+		if err := cleanDirectory(t.OutputPath); err != nil {
+			return nil
+		}
+	}
 	if err := os.MkdirAll(t.OutputPath, os.ModePerm); err != nil {
 		return err
 	}
@@ -65,7 +71,7 @@ func (t *Target) Build() error {
 	if err := t.init(); err != nil {
 		return err
 	}
-	defer t.clean()
+	defer cleanDirectory(t.temp)
 
 	for i := range t.Platforms {
 		bin, err := t.build(i)
@@ -172,10 +178,6 @@ func (t *Target) build(id int) (string, error) {
 	return output, nil
 }
 
-func (t *Target) clean() {
-	fmt.Println(t.temp)
-}
-
 func (t *Target) pack(id int, input string) error {
 	p := t.Platforms[id]
 
@@ -220,4 +222,8 @@ func (t *Target) pack(id int, input string) error {
 	default:
 		return compressRaw(outputRaw, input)
 	}
+}
+
+func cleanDirectory(path string) error {
+	return os.RemoveAll(path)
 }
