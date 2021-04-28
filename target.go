@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 )
 
@@ -188,6 +189,8 @@ func (t *Target) pack(id int, input string) error {
 			name = fmt.Sprintf("%s-%s", name, p.OS)
 		}
 		name = strings.ReplaceAll(name, PlaceholderOS, string(p.OS))
+	} else if runtime.GOOS == string(OSWindows) {
+		p.OS = OSWindows
 	}
 
 	if len(p.Arch) > 0 {
