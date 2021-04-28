@@ -63,3 +63,41 @@ const (
 	GoArm6 PlatformGoArm = "6"
 	GoArm7 PlatformGoArm = "7"
 )
+
+var (
+	PlatformWindows386   = Platform{OS: OSWindows, Arch: Arch386}
+	PlatformWindowsAmd64 = Platform{OS: OSWindows, Arch: ArchAmd64}
+	PlatformWindowsArm5  = Platform{OS: OSWindows, Arch: ArchArm, GoArm: GoArm5}
+	PlatformWindowsArm6  = Platform{OS: OSWindows, Arch: ArchArm, GoArm: GoArm6}
+	PlatformWindowsArm7  = Platform{OS: OSWindows, Arch: ArchArm, GoArm: GoArm7}
+
+	PlatformLinux386   = Platform{OS: OSLinux, Arch: Arch386}
+	PlatformLinuxAmd64 = Platform{OS: OSLinux, Arch: ArchAmd64}
+	PlatformLinuxArm64 = Platform{OS: OSLinux, Arch: ArchArm64}
+	PlatformLinuxArm5  = Platform{OS: OSLinux, Arch: ArchArm, GoArm: GoArm5}
+	PlatformLinuxArm6  = Platform{OS: OSLinux, Arch: ArchArm, GoArm: GoArm6}
+	PlatformLinuxArm7  = Platform{OS: OSLinux, Arch: ArchArm, GoArm: GoArm7}
+
+	PlatformDarwinAmd64 = Platform{OS: OSDarwin, Arch: ArchAmd64}
+	PlatformDarwinArm64 = Platform{OS: OSDarwin, Arch: ArchArm64}
+)
+
+var (
+	PlatformCommon = []Platform{
+		PlatformWindows386,
+		PlatformWindowsAmd64,
+		PlatformWindowsArm5,
+		PlatformWindowsArm6,
+		PlatformWindowsArm7,
+
+		PlatformLinux386,
+		PlatformLinuxAmd64,
+		PlatformLinuxArm64,
+		PlatformLinuxArm5,
+		PlatformLinuxArm6,
+		PlatformLinuxArm7,
+
+		PlatformDarwinAmd64,
+		PlatformDarwinArm64,
+	}
+)
