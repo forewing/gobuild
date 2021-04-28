@@ -90,6 +90,12 @@ func (t *Target) init() error {
 	}
 	t.Source = absSource
 
+	absOutput, err := filepath.Abs(t.OutputPath)
+	if err != nil {
+		return err
+	}
+	t.OutputPath = absOutput
+
 	temp, err := os.MkdirTemp("", tempDirPattern)
 	if err != nil {
 		return err
