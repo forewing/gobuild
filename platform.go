@@ -100,4 +100,8 @@ var (
 		PlatformDarwinAmd64,
 		PlatformDarwinArm64,
 	}
+
+	PlatformNative = []Platform{
+		{},
+	}
 )
