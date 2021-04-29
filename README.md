@@ -76,3 +76,14 @@ if err != nil {
     panic(err)
 }
 ```
+
+### CGO
+
+```golang
+target = gobuild.Target{
+    Platforms: []gobuild.Platform{
+        {OS: gobuild.OSLinux, Arch: gobuild.ArchAmd64, CC: "gcc"},
+        {OS: gobuild.OSWindows, Arch: gobuild.ArchAmd64, CC: "x86_64-w64-mingw32-gcc"},
+    },
+}
+```
