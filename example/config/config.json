@@ -1,0 +1,17 @@
+{
+    "PlatformShortcut": "common",
+    "Go": "",
+    "Source": "../payload",
+    "OutputName": "purego-{Version}-{OS}-{Arch}",
+    "OutputPath": "./output",
+    "CleanOutput": true,
+    "Cgo": false,
+    "ExtraFlags": null,
+    "ExtraLdFlags": "-s -w",
+    "VersionPath": "main.Version",
+    "HashPath": "main.Hash",
+    "Compress": "auto",
+    "Platforms": [
+        {}
+    ]
+}

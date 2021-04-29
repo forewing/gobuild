@@ -94,6 +94,17 @@ var (
 	PlatformDarwinArm64 = Platform{OS: OSDarwin, Arch: ArchArm64}
 )
 
+// PlatformShortcut is type of shortcuts for platform settings.
+type PlatformShortcut string
+
+const (
+	// PlatformShortcutCommon indicate append PlatformCommon into Target.Platforms.
+	PlatformShortcutCommon PlatformShortcut = "common"
+
+	// PlatformShortcutCommon indicate append PlatformNative into Target.Platforms.
+	PlatformShortcutNative PlatformShortcut = "native"
+)
+
 var (
 	// PlatformCommon includes the most used (~99.9%) platforms.
 	//
@@ -120,5 +131,10 @@ var (
 	// PlatformNative contains the config for native platform
 	PlatformNative = []Platform{
 		{},
+	}
+
+	platformShorcutMap = map[PlatformShortcut][]Platform{
+		PlatformShortcutCommon: PlatformCommon,
+		PlatformShortcutNative: PlatformNative,
 	}
 )
