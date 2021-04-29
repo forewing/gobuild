@@ -8,7 +8,7 @@ import (
 
 var (
 	target = gobuild.Target{
-		Source: "./payload",
+		Source: "../payload",
 		OutputName: fmt.Sprintf("purego-%s-%s-%s",
 			gobuild.PlaceholderVersion,
 			gobuild.PlaceholderOS,
@@ -27,5 +27,8 @@ var (
 )
 
 func main() {
-	fmt.Println(target.Build())
+	err := target.Build()
+	if err != nil {
+		panic(err)
+	}
 }
