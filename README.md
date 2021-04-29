@@ -6,16 +6,73 @@
 
 Tools for building and distributing Go executables
 
-## Example
+## Examples
+
+### Directly Use
 
 [example/purego](./example/purego)
 
+```golang
+target := gobuild.Target{
+    Source: "./example/payload",
+
+    OutputName: fmt.Sprintf("payload-%s-%s-%s",
+        gobuild.PlaceholderVersion,
+        gobuild.PlaceholderOS,
+        gobuild.PlaceholderArch),
+
+    OutputPath:  "./output",
+    CleanOutput: true,
+
+    ExtraLdFlags: "-s -w",
+
+    VersionPath: "main.Version",
+    HashPath:    "main.Hash",
+
+    Compress:  gobuild.CompressAuto,
+    Platforms: gobuild.PlatformCommon,
+}
+
+err := target.Build()
+if err != nil {
+    panic(err)
+}
 ```
-$ cd example/purego
-$ go run .
-$ tar xaf output/purego-XXX-linux-amd64.tar.gz
-$ ./purego-XXX-linux-amd64
-hello world
-version: XXX
-hash: YYY
+
+### Config File
+
+[example/config](./example/config)
+
+```json
+{
+    "Go": "",
+    "Source": "./example/payload",
+    "OutputName": "payload-{Version}-{OS}-{Arch}",
+    "OutputPath": "./output",
+    "CleanOutput": true,
+    "Cgo": false,
+    "ExtraFlags": null,
+    "ExtraLdFlags": "-s -w",
+    "VersionPath": "main.Version",
+    "HashPath": "main.Hash",
+    "Compress": "auto",
+    "PlatformShortcut": "common",
+    "Platforms": [
+        {
+            "Arch": "riscv",
+            "OS": "linux"
+        }
+    ]
+}
+```
+
+```golang
+target, err := gobuild.GetTargetFromJson("./config.json")
+if err != nil {
+    panic(err)
+}
+err = target.Build()
+if err != nil {
+    panic(err)
+}
 ```
