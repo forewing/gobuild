@@ -225,22 +225,26 @@ func (t *Target) pack(id int, input string) error {
 
 	name := t.output
 
+	osReplace := runtime.GOOS
 	if len(p.OS) > 0 {
 		if !strings.Contains(name, string(PlaceholderOS)) {
 			name = fmt.Sprintf("%s-%s", name, p.OS)
 		}
-		name = strings.ReplaceAll(name, string(PlaceholderOS), string(p.OS))
+		osReplace = string(p.OS)
 	} else if runtime.GOOS == string(OSWindows) {
 		p.OS = OSWindows
 	}
+	name = strings.ReplaceAll(name, string(PlaceholderOS), osReplace)
 
+	archReplace := runtime.GOARCH
 	if len(p.Arch) > 0 {
 		arch := string(p.Arch) + string(p.GoArm)
 		if !strings.Contains(name, string(PlaceholderArch)) {
 			name = fmt.Sprintf("%s-%s", name, arch)
 		}
-		name = strings.ReplaceAll(name, string(PlaceholderArch), arch)
+		archReplace = arch
 	}
+	name = strings.ReplaceAll(name, string(PlaceholderArch), archReplace)
 
 	binary := name
 	if p.OS == OSWindows {
