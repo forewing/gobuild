@@ -58,7 +58,22 @@ func compressZip(outputPath, inputPath, binName string) error {
 }
 
 func compressRaw(outputPath, inputPath string) error {
-	return os.Rename(inputPath, outputPath)
+	input, err := os.Open(inputPath)
+	if err != nil {
+		return err
+	}
+	output, err := os.Create(outputPath)
+	if err != nil {
+		return err
+	}
+	defer output.Close()
+
+	_, err = io.Copy(output, input)
+	input.Close()
+	if err != nil {
+		return err
+	}
+	return os.Remove(inputPath)
 }
 
 func addFileToTarWriter(tarWriter *tar.Writer, filePath, fileName string) error {
