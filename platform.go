@@ -115,14 +115,12 @@ var (
 		PlatformWindows386,
 		PlatformWindowsAmd64,
 		PlatformWindowsArm64,
-		PlatformWindowsArm5,
 		PlatformWindowsArm6,
 		PlatformWindowsArm7,
 
 		PlatformLinux386,
 		PlatformLinuxAmd64,
 		PlatformLinuxArm64,
-		PlatformLinuxArm5,
 		PlatformLinuxArm6,
 		PlatformLinuxArm7,
 
