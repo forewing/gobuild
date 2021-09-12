@@ -79,6 +79,7 @@ const (
 var (
 	PlatformWindows386   = Platform{OS: OSWindows, Arch: Arch386}
 	PlatformWindowsAmd64 = Platform{OS: OSWindows, Arch: ArchAmd64}
+	PlatformWindowsArm64 = Platform{OS: OSWindows, Arch: ArchArm64}
 	PlatformWindowsArm5  = Platform{OS: OSWindows, Arch: ArchArm, GoArm: GoArm5}
 	PlatformWindowsArm6  = Platform{OS: OSWindows, Arch: ArchArm, GoArm: GoArm6}
 	PlatformWindowsArm7  = Platform{OS: OSWindows, Arch: ArchArm, GoArm: GoArm7}
@@ -113,6 +114,7 @@ var (
 	PlatformCommon = []Platform{
 		PlatformWindows386,
 		PlatformWindowsAmd64,
+		PlatformWindowsArm64,
 		PlatformWindowsArm5,
 		PlatformWindowsArm6,
 		PlatformWindowsArm7,
