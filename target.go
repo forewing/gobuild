@@ -102,8 +102,8 @@ var (
 // Build the target
 func (t *Target) Build() error {
 	if t.CleanOutput {
-		if err := cleanDirectory(t.OutputPath); err != nil {
-			return nil
+		if err := os.RemoveAll(t.OutputPath); err != nil {
+			return err
 		}
 	}
 	if err := os.MkdirAll(t.OutputPath, os.ModePerm); err != nil {
@@ -281,10 +281,6 @@ func (t *Target) pack(id int, input string) error {
 	default:
 		return compressRaw(outputRaw, input)
 	}
-}
-
-func cleanDirectory(path string) error {
-	return os.RemoveAll(path)
 }
 
 func (t *Target) buildUniversal(id int) (string, error) {
