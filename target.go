@@ -236,9 +236,14 @@ func (t *Target) pack(id int, input string) error {
 
 	name := t.output
 
+	forceReplace := false
+	if len(t.Platforms) > 1 {
+		forceReplace = true
+	}
+
 	osReplace := runtime.GOOS
 	if len(p.OS) > 0 {
-		if !strings.Contains(name, string(PlaceholderOS)) {
+		if forceReplace && !strings.Contains(name, string(PlaceholderOS)) {
 			name = fmt.Sprintf("%s-%s", name, p.OS)
 		}
 		osReplace = string(p.OS)
@@ -250,7 +255,7 @@ func (t *Target) pack(id int, input string) error {
 	archReplace := runtime.GOARCH
 	if len(p.Arch) > 0 {
 		arch := string(p.Arch) + string(p.GoArm)
-		if !strings.Contains(name, string(PlaceholderArch)) {
+		if forceReplace && !strings.Contains(name, string(PlaceholderArch)) {
 			name = fmt.Sprintf("%s-%s", name, arch)
 		}
 		archReplace = arch
