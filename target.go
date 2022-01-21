@@ -113,7 +113,7 @@ func (t *Target) Build() error {
 	if err := t.init(); err != nil {
 		return err
 	}
-	defer cleanDirectory(t.temp)
+	defer os.RemoveAll(t.temp)
 
 	for i := range t.Platforms {
 		bin, err := t.build(i)
