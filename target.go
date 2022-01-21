@@ -94,11 +94,7 @@ const (
 
 var (
 	defaultEnvs = map[string]string{
-		envCgo:    "0",
-		envCC:     "gcc",
-		envGoOS:   "",
-		envGoArch: "",
-		envGoArm:  "",
+		envCgo: "0",
 	}
 )
 
