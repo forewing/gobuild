@@ -60,6 +60,9 @@ type Target struct {
 	// Platforms is the target platforms.
 	Platforms []Platform
 
+	// Envs set extra environment variables
+	Envs map[string]string
+
 	temp    string
 	ldflags string
 	output  string
@@ -206,6 +209,13 @@ func (t *Target) build(id int) (string, error) {
 	envs[envGoOS] = string(p.OS)
 	envs[envGoArch] = string(p.Arch)
 	envs[envGoArm] = string(p.GoArm)
+
+	for k := range t.Envs {
+		envs[k] = t.Envs[k]
+	}
+	for k := range p.Envs {
+		envs[k] = p.Envs[k]
+	}
 
 	cmd.Env = append(cmd.Env, os.Environ()...)
 	for k, v := range envs {

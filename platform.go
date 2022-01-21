@@ -13,6 +13,9 @@ type Platform struct {
 
 	// CC sets C compiler when cgo is enabled.
 	CC string
+
+	// Envs set extra environment variables
+	Envs map[string]string
 }
 
 // PlatformArch is all available GOARCH.
