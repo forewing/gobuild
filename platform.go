@@ -51,6 +51,7 @@ const (
 	ArchSparc       PlatformArch = "sparc"
 	ArchSparc64     PlatformArch = "sparc64"
 	ArchWasm        PlatformArch = "wasm"
+	ArchUniversal   PlatformArch = "universal"
 )
 
 const (
@@ -94,8 +95,9 @@ var (
 	PlatformLinuxArm6  = Platform{OS: OSLinux, Arch: ArchArm, GoArm: GoArm6}
 	PlatformLinuxArm7  = Platform{OS: OSLinux, Arch: ArchArm, GoArm: GoArm7}
 
-	PlatformDarwinAmd64 = Platform{OS: OSDarwin, Arch: ArchAmd64}
-	PlatformDarwinArm64 = Platform{OS: OSDarwin, Arch: ArchArm64}
+	PlatformDarwinAmd64     = Platform{OS: OSDarwin, Arch: ArchAmd64}
+	PlatformDarwinArm64     = Platform{OS: OSDarwin, Arch: ArchArm64}
+	PlatformDarwinUniversal = Platform{OS: OSDarwin, Arch: ArchUniversal}
 )
 
 // PlatformShortcut is type of shortcuts for platform settings.

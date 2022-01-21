@@ -83,11 +83,12 @@ const (
 
 	tempDirPattern = "go-build*"
 
-	envCgo    = "CGO_ENABLED"
-	envCC     = "CC"
-	envGoOS   = "GOOS"
-	envGoArch = "GOARCH"
-	envGoArm  = "GOARM"
+	envCgo        = "CGO_ENABLED"
+	envCC         = "CC"
+	envGoOS       = "GOOS"
+	envGoArch     = "GOARCH"
+	envGoArm      = "GOARM"
+	envGoGCCFlags = "GOGCCFLAGS"
 
 	defaultGoExec = "go"
 )
@@ -172,6 +173,10 @@ func (t *Target) init() error {
 
 func (t *Target) build(id int) (string, error) {
 	p := t.Platforms[id]
+
+	if p.Arch == ArchUniversal {
+		return t.buildUniversal(id)
+	}
 
 	output := filepath.Join(t.temp, fmt.Sprintf("output-%v", id))
 	args := []string{
@@ -280,4 +285,49 @@ func (t *Target) pack(id int, input string) error {
 
 func cleanDirectory(path string) error {
 	return os.RemoveAll(path)
+}
+
+func (t *Target) buildUniversal(id int) (string, error) {
+	p := t.Platforms[id]
+
+	if p.OS != OSDarwin {
+		return "", fmt.Errorf("%v does not support universal arch", p.OS)
+	}
+
+	gccFlags, err := exec.Command("go", "env", envGoGCCFlags).Output()
+	if err != nil {
+		return "", err
+	}
+
+	t2 := *t
+	t2.temp = filepath.Join(t.temp, "u")
+	os.MkdirAll(t2.temp, os.ModePerm)
+
+	t2.Platforms = []Platform{p, p}
+	t2.Platforms[0].Arch = ArchAmd64
+	t2.Platforms[0].Envs = map[string]string{
+		envGoGCCFlags: strings.ReplaceAll(strings.TrimSpace(string(gccFlags)), "arm64", "x86_64"),
+	}
+	t2.Platforms[1].Arch = ArchArm64
+	t2.Platforms[1].Envs = map[string]string{
+		envGoGCCFlags: strings.ReplaceAll(strings.TrimSpace(string(gccFlags)), "x86_64", "arm64"),
+	}
+
+	o0, err := t2.build(0)
+	if err != nil {
+		return "", err
+	}
+	o1, err := t2.build(1)
+	if err != nil {
+		return "", err
+	}
+
+	output := filepath.Join(t.temp, fmt.Sprintf("output-%v", id))
+	lipo := exec.Command("lipo", "-create", "-output", output, o0, o1)
+	err = lipo.Run()
+	if err != nil {
+		return "", err
+	}
+
+	return output, nil
 }
