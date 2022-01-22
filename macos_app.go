@@ -61,11 +61,6 @@ func BuildMacOSApp(output, name, exe, id, icon string, convertIcon bool) error {
 		return err
 	}
 
-	err = os.Chmod(exe, 0755)
-	if err != nil {
-		return err
-	}
-
 	err = os.Rename(exe, filepath.Join(appMacOS, exeName))
 	if err != nil {
 		return err

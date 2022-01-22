@@ -2,6 +2,7 @@ package gobuild
 
 import (
 	"fmt"
+	"io/fs"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -94,6 +95,8 @@ const (
 )
 
 var (
+	OutputMode = 0755
+
 	defaultEnvs = map[string]string{
 		envCgo: "0",
 	}
@@ -228,6 +231,7 @@ func (t *Target) build(id int) (string, error) {
 		return "", fmt.Errorf("err: %v, output: %v", err, string(combined))
 	}
 
+	os.Chmod(output, fs.FileMode(OutputMode))
 	return output, nil
 }
 

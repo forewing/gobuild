@@ -5,6 +5,7 @@ import (
 	"archive/zip"
 	"compress/gzip"
 	"io"
+	"io/fs"
 	"os"
 )
 
@@ -73,6 +74,8 @@ func compressRaw(outputPath, inputPath string) error {
 	if err != nil {
 		return err
 	}
+
+	os.Chmod(outputPath, fs.FileMode(OutputMode))
 	return os.Remove(inputPath)
 }
 
