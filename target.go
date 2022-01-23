@@ -277,13 +277,13 @@ func (t *Target) pack(id int, input string) error {
 
 	switch t.Compress {
 	case CompressTarGz:
-		return compress(filepath.Join(t.OutputPath, name+".tar.gz"),
+		return Compress(filepath.Join(t.OutputPath, name+".tar.gz"),
 			files, archiver.CompressedArchive{
 				Compression: archiver.Gz{},
 				Archival:    archiver.Tar{},
 			})
 	case CompressZip:
-		return compress(filepath.Join(t.OutputPath, name+".zip"), files, archiver.Zip{})
+		return Compress(filepath.Join(t.OutputPath, name+".zip"), files, archiver.Zip{})
 	case CompressRaw:
 		fallthrough
 	default:

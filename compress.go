@@ -44,7 +44,8 @@ func moveWithoutCompress(outputPath, inputPath string) error {
 	return os.Remove(inputPath)
 }
 
-func compress(outputPath string, files map[string]string, format archiver.Archiver) error {
+// Compress files to outputPath with format
+func Compress(outputPath string, files map[string]string, format archiver.Archiver) error {
 	targets, err := archiver.FilesFromDisk(nil, files)
 	if err != nil {
 		return err
