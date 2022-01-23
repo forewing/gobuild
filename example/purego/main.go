@@ -21,7 +21,7 @@ var (
 		VersionPath: "main.Version",
 		HashPath:    "main.Hash",
 
-		Compress:  gobuild.CompressAuto,
+		Compress:  gobuild.CompressZip,
 		Platforms: gobuild.PlatformCommon,
 	}
 )

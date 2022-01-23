@@ -276,15 +276,10 @@ func (t *Target) pack(id int, input string) error {
 	outputRaw := filepath.Join(t.OutputPath, binary)
 
 	switch t.Compress {
-	case CompressAllTarGz:
+	case CompressTarGz:
 		return compressTarGz(outputTarGz, input, binary)
-	case CompressAllZip:
+	case CompressZip:
 		return compressZip(outputZip, input, binary)
-	case CompressAuto:
-		if p.OS == OSWindows {
-			return compressZip(outputZip, input, binary)
-		}
-		return compressTarGz(outputTarGz, input, binary)
 	case CompressRaw:
 		return compressRaw(outputRaw, input)
 	default:

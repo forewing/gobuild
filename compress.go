@@ -16,17 +16,11 @@ const (
 	// CompressRaw do not compress binaries, just copy them to output path.
 	CompressRaw CompressType = "raw"
 
-	// CompressAllTarGz compress all binaries into tar.gz format
-	CompressAllTarGz CompressType = "tar.gz"
+	// CompressTarGz compress all binaries into tar.gz format
+	CompressTarGz CompressType = "tar.gz"
 
-	// CompressAllZip compress all binaries into zip format
-	CompressAllZip CompressType = "zip"
-
-	// CompressAuto decides compress format according to target OS.
-	//
-	// For Arch other than `windows`, use tar.gz format.
-	// For Arch `windows`, use zip format.
-	CompressAuto CompressType = "auto"
+	// CompressZip compress all binaries into zip format
+	CompressZip CompressType = "zip"
 )
 
 func compressTarGz(outputPath, inputPath, binName string) error {
