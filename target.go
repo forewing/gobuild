@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/mholt/archiver/v4"
 )
 
 // Target describe build configs
@@ -271,19 +273,21 @@ func (t *Target) pack(id int, input string) error {
 		binary += ".exe"
 	}
 
-	outputTarGz := filepath.Join(t.OutputPath, name+".tar.gz")
-	outputZip := filepath.Join(t.OutputPath, name+".zip")
-	outputRaw := filepath.Join(t.OutputPath, binary)
+	files := map[string]string{input: binary}
 
 	switch t.Compress {
 	case CompressTarGz:
-		return compressTarGz(outputTarGz, input, binary)
+		return compress(filepath.Join(t.OutputPath, name+".tar.gz"),
+			files, archiver.CompressedArchive{
+				Compression: archiver.Gz{},
+				Archival:    archiver.Tar{},
+			})
 	case CompressZip:
-		return compressZip(outputZip, input, binary)
+		return compress(filepath.Join(t.OutputPath, name+".zip"), files, archiver.Zip{})
 	case CompressRaw:
-		return compressRaw(outputRaw, input)
+		fallthrough
 	default:
-		return compressRaw(outputRaw, input)
+		return moveWithoutCompress(filepath.Join(t.OutputPath, binary), input)
 	}
 }
 
