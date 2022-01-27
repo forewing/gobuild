@@ -86,12 +86,11 @@ const (
 
 	tempDirPattern = "go-build*"
 
-	envCgo        = "CGO_ENABLED"
-	envCC         = "CC"
-	envGoOS       = "GOOS"
-	envGoArch     = "GOARCH"
-	envGoArm      = "GOARM"
-	envGoGCCFlags = "GOGCCFLAGS"
+	envCgo    = "CGO_ENABLED"
+	envCC     = "CC"
+	envGoOS   = "GOOS"
+	envGoArch = "GOARCH"
+	envGoArm  = "GOARM"
 
 	defaultGoExec = "go"
 )
@@ -298,24 +297,13 @@ func (t *Target) buildUniversal(id int) (string, error) {
 		return "", fmt.Errorf("%v does not support universal arch", p.OS)
 	}
 
-	gccFlags, err := exec.Command("go", "env", envGoGCCFlags).Output()
-	if err != nil {
-		return "", err
-	}
-
 	t2 := *t
 	t2.temp = filepath.Join(t.temp, "u")
 	os.MkdirAll(t2.temp, os.ModePerm)
 
 	t2.Platforms = []Platform{p, p}
 	t2.Platforms[0].Arch = ArchAmd64
-	t2.Platforms[0].Envs = map[string]string{
-		envGoGCCFlags: strings.ReplaceAll(strings.TrimSpace(string(gccFlags)), "arm64", "x86_64"),
-	}
 	t2.Platforms[1].Arch = ArchArm64
-	t2.Platforms[1].Envs = map[string]string{
-		envGoGCCFlags: strings.ReplaceAll(strings.TrimSpace(string(gccFlags)), "x86_64", "arm64"),
-	}
 
 	o0, err := t2.build(0)
 	if err != nil {
