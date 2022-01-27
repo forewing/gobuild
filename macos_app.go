@@ -38,8 +38,6 @@ const (
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>LSApplicationCategoryType</key>
-	<string>public.app-category.</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.11</string>
 </dict>
