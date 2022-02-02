@@ -136,17 +136,17 @@ func (t *Target) Build() error {
 func (t *Target) init() error {
 	t.output = t.OutputName
 
-	absSource, err := filepath.Abs(t.Source)
+	realSource, err := evalSymlinksAbs(t.Source)
 	if err != nil {
 		return err
 	}
-	t.Source = absSource
+	t.Source = realSource
 
-	absOutput, err := filepath.Abs(t.OutputPath)
+	realOutput, err := evalSymlinksAbs(t.OutputPath)
 	if err != nil {
 		return err
 	}
-	t.OutputPath = absOutput
+	t.OutputPath = realOutput
 
 	temp, err := os.MkdirTemp("", tempDirPattern)
 	if err != nil {
