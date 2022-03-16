@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/jackmordaunt/icns/v2 v2.1.3
-	github.com/mholt/archiver/v4 v4.0.0-alpha.4
+	github.com/mholt/archiver/v4 v4.0.0-alpha.5
 )
 
 require (
