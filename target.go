@@ -204,6 +204,7 @@ func (t *Target) build(id int) (string, error) {
 	for k, v := range defaultEnvs {
 		envs[k] = v
 	}
+	envs["PWD"] = t.Source
 
 	if t.Cgo {
 		envs[envCgo] = "1"
