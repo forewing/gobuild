@@ -3,7 +3,7 @@ module github.com/forewing/gobuild
 go 1.18
 
 require (
-	github.com/jackmordaunt/icns/v2 v2.1.3
+	github.com/jackmordaunt/icns/v2 v2.2.0
 	github.com/mholt/archiver/v4 v4.0.0-alpha.6
 )
 
