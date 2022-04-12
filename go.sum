@@ -6,8 +6,8 @@ github.com/dsnet/compress v0.0.1/go.mod h1:Aw8dCMJ7RioblQeTqt88akK31OvO8Dhf5Jflh
 github.com/dsnet/golib v0.0.0-20171103203638-1ea166775780/go.mod h1:Lj+Z9rebOhdfkVLjJ8T6VcRQv3SXugXy999NBtR9aFY=
 github.com/golang/snappy v0.0.4 h1:yAGX7huGHXlcLOEtBnF4w7FQwA26wojNCwOYAEhLjQM=
 github.com/golang/snappy v0.0.4/go.mod h1:/XxbfmMg8lxefKM7IXC3fBNl/7bRcc72aCRzEWrmP2Q=
-github.com/jackmordaunt/icns/v2 v2.1.3 h1:LBBT9k6Rvnbx+peHFNVQU9klGs0jGol/pTd0EJf0+l8=
-github.com/jackmordaunt/icns/v2 v2.1.3/go.mod h1:6aYIB9eSzyfHHMKqDf17Xrs1zetQPReAkiUSHzdw4cI=
+github.com/jackmordaunt/icns/v2 v2.2.1 h1:MGklwYP2yohKn2Bw7XxlF69LZe98S1vUfl5OvAulPwg=
+github.com/jackmordaunt/icns/v2 v2.2.1/go.mod h1:6aYIB9eSzyfHHMKqDf17Xrs1zetQPReAkiUSHzdw4cI=
 github.com/klauspost/compress v1.4.1/go.mod h1:RyIbtBH6LamlWaDj8nUwkbUhJ87Yi3uG0guNDohfE1A=
 github.com/klauspost/compress v1.15.1 h1:y9FcTHGyrebwfP0ZZqFiaxTaiDnUrGkJkI+f583BL1A=
 github.com/klauspost/compress v1.15.1/go.mod h1:/3/Vjq9QcHkK5uEr5lBEmyoZ1iFhe47etQ6QUkpK6sk=
