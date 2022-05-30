@@ -4,14 +4,14 @@ go 1.18
 
 require (
 	github.com/jackmordaunt/icns/v2 v2.2.1
-	github.com/mholt/archiver/v4 v4.0.0-alpha.6
+	github.com/mholt/archiver/v4 v4.0.0-alpha.7
 )
 
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/dsnet/compress v0.0.1 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
-	github.com/klauspost/compress v1.15.1 // indirect
+	github.com/klauspost/compress v1.15.5 // indirect
 	github.com/klauspost/pgzip v1.2.5 // indirect
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
 	github.com/nwaples/rardecode/v2 v2.0.0-beta.2 // indirect
