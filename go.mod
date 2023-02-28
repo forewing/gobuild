@@ -3,7 +3,7 @@ module github.com/forewing/gobuild
 go 1.18
 
 require (
-	github.com/jackmordaunt/icns/v2 v2.2.1
+	github.com/jackmordaunt/icns/v2 v2.2.4
 	github.com/mholt/archiver/v4 v4.0.0-alpha.6
 )
 
@@ -18,5 +18,5 @@ require (
 	github.com/pierrec/lz4/v4 v4.1.14 // indirect
 	github.com/therootcompany/xz v1.0.1 // indirect
 	github.com/ulikunitz/xz v0.5.10 // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/text v0.7.0 // indirect
 )
